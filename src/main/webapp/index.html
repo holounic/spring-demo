@@ -2,12 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="index.js"></script>
+    <title>Shop</title>
+    <script src="script.js"></script>
   </head>
   <body>
-    <h1>Bucket</h1>
-    <button onclick="sendRequest()">press me</button>
-    <button onclick="square()">square</button>
+    <h1>Cat shop</h1>
+    <form id="cat-id">
+      <label for="cat-id-input">Cat index: </label>
+      <input id="cat-id-input" type="number" value="0">
+    </form>
+    <form id="payment-input">
+      <label for="payment-size-input">Payment: </label>
+      <input id="payment-size-input" type="number" value="0">
+      <input list="payment-methods" name="payment-methods" id="payment-method">
+      <datalist id="payment-methods">
+        <option value="cash">
+        <option value="card">
+      </datalist>
+    </form>
+
+    <button onclick="showCat()">show cat</button>
+    <button onclick="buyCat()">buy cat</button>
+    <div id="cat-window"></div>
+    <div id="change-window"></div>
   </body>
 </html>
