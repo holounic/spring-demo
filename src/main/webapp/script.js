@@ -24,9 +24,8 @@ function getBalance() {
   fetch('/balance')
       .then(response => response.json())
       .then(json => {
-        console.log(json);
         displayElement('balance', json);
-      })
+      });
 }
 
 function showCat() {
@@ -46,9 +45,8 @@ function buyCat() {
       .then(response => response.json())
       .then(json => {
         displayElement('cat-window', jsonToCat(json['cat']));
-        displayElement('change-window', jsonToChange(json['change']));
-      });
-  getBalance();
+        displayElement('change-window', jsonToChange(json['change']))})
+      .then(() => getBalance());
 }
 
 function sellCat() {
@@ -64,14 +62,12 @@ function sellCat() {
 
   fetch(request)
       .then(response => response.json())
-      .then(json => displayElement('payment-window', jsonToPayment(json))
-      );
-  getBalance();
+      .then(json => displayElement('payment-window', jsonToPayment(json)))
+      .then(() => getBalance());
 }
 
 function buyCoffee() {
   fetch('/buy/coffee', {method: 'POST'})
       .then(response => response.json())
-      .then(json => console.log(json));
-  getBalance();
+      .then(() =>  getBalance());
 }

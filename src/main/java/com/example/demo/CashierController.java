@@ -11,11 +11,11 @@ import javax.annotation.Resource;
 public class CashierController {
 
   @Resource(name = "cashierBean")
-  Cashier cashier = new Cashier();
+  private Cashier CASHIER = new Cashier();
 
   @GetMapping(value = "/balance")
   public int getBalance() {
-    return cashier.getSum();
+    return CASHIER.getSum();
   }
 
 }

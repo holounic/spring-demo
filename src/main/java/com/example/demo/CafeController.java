@@ -10,10 +10,10 @@ import javax.annotation.Resource;
 
 @RestController
 public class CafeController {
-  private static final int COFFEE_PRICE = 10;
+  private final int COFFEE_PRICE = 10;
 
   @Resource(name = "cashierBean")
-  private static final Cashier CASHIER = new Cashier();
+  private final Cashier CASHIER = new Cashier();
 
   @PostMapping("/buy/coffee")
   @ResponseBody

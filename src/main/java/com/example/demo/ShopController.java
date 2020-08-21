@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class ShopController {
   @Resource(name = "cashierBean")
-  private static final Cashier CASHIER = new Cashier();
+  private final Cashier CASHIER = new Cashier();
 
   private static final Payment EMPTY_PAYMENT = new Payment(0, false);
   private static final Cat NULL_CAT = new Cat("Null", 0, new RgbColour(0, 0, 0), 0);
@@ -19,7 +19,6 @@ public class ShopController {
   private List<Cat> cats = new LinkedList<>();
 
   @PostMapping("/sell")
-  @ResponseBody
   public Payment sellCat(@RequestBody Cat cat) {
     if (CASHIER.getSum() < cat.getPrice()) {
       return EMPTY_PAYMENT;
@@ -30,7 +29,6 @@ public class ShopController {
   }
 
   @GetMapping("/show/{id}")
-  @ResponseBody
   public Cat showCat(@PathVariable int id) {
     if (cats.size() <= id) {
       return NULL_CAT;
@@ -39,7 +37,6 @@ public class ShopController {
   }
 
   @PostMapping("/buy/{id}")
-  @ResponseBody
   public Bag buyCat(@PathVariable int id, @RequestBody Payment payment) {
     if (cats.size() <= id || payment.size < cats.get(id).getPrice()) {
       return EMPTY_BAG;
