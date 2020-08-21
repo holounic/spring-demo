@@ -7,10 +7,12 @@
   </head>
   <body>
     <h1>Cat shop</h1>
+
     <form id="cat-id">
       <label for="cat-id-input">Cat index: </label>
       <input id="cat-id-input" type="number" value="0">
     </form>
+
     <form id="payment-input">
       <label for="payment-size-input">Payment: </label>
       <input id="payment-size-input" type="number" value="0">
@@ -20,10 +22,28 @@
         <option value="card">
       </datalist>
     </form>
+    <br>
+    <form id="cat-for-sale">
+      <label for="for-sale-name">Name: </label>
+      <input id="for-sale-name" type="text" name="name" value="name">
+      <label for="for-sale-age">Age: </label>
+      <input id="for-sale-age" type="number" name="age"  value="0">
+      <label for="for-sale-price">Price: </label>
+      <input id="for-sale-price" type="number" name="price" value="0">
+      Colour:
+      <label for="colour-r">R: </label>
+      <input id="colour-r" type="number" name="r" value="0">
+      <label for="colour-g">G: </label>
+      <input id="colour-g" type="number" name="g" value="0">
+      <label for="colour-b">B: </label>
+      <input id="colour-b" type="number" name="b" value="0">
+    </form>
 
     <button onclick="showCat()">show cat</button>
     <button onclick="buyCat()">buy cat</button>
+    <button onclick="sellCat()">sell cat</button>
     <div id="cat-window"></div>
     <div id="change-window"></div>
+    <div id="payment-window"></div>
   </body>
 </html>

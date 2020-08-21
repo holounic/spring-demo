@@ -15,7 +15,7 @@ public class ShopController {
   private static final Bag EMPTY_BAG = new Bag(NULL_CAT, EMPTY_PAYMENT);
 
   private List<Cat> cats = new LinkedList<>();
-  private int balance = 0;
+  private int balance = 100000;
 
   @PostMapping("/sell")
   @ResponseBody
