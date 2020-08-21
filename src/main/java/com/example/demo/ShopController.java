@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class ShopController {
   @Resource(name = "cashierBean")
-  private final Cashier CASHIER = new Cashier();
+  private final Cashier CASHIER = new CashierConfig().getCashier();
 
   private static final Payment EMPTY_PAYMENT = new Payment(0, false);
   private static final Cat NULL_CAT = new Cat("Null", 0, new RgbColour(0, 0, 0), 0);

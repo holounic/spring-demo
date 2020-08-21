@@ -9,7 +9,7 @@ public class CashierConfig {
 
   @Bean("cashierBean")
   @ApplicationScope
-  Cashier getCashier() {
+  public Cashier getCashier() {
     return new Cashier();
   }
 }

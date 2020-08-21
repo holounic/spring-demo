@@ -12,11 +12,11 @@ public class Cashier {
     return sum;
   }
 
-  public void put(int sum_) {
-    sum += sum_;
+  public void put(int sum) {
+    this.sum += sum;
   }
 
-  public void withdraw(int sum_) {
-    sum -= sum_;
+  public void withdraw(int sum) {
+    this.sum -= sum;
   }
 }
