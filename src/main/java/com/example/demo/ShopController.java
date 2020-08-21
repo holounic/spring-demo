@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.components.*;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -11,7 +10,7 @@ import java.util.List;
 @RestController
 public class ShopController {
   @Resource(name = "cashierBean")
-  Cashier cashier = new Cashier();
+  private static final Cashier CASHIER = new Cashier();
 
   private static final Payment EMPTY_PAYMENT = new Payment(0, false);
   private static final Cat NULL_CAT = new Cat("Null", 0, new RgbColour(0, 0, 0), 0);
@@ -22,10 +21,10 @@ public class ShopController {
   @PostMapping("/sell")
   @ResponseBody
   public Payment sellCat(@RequestBody Cat cat) {
-    if (cashier.getSum() < cat.getPrice()) {
+    if (CASHIER.getSum() < cat.getPrice()) {
       return EMPTY_PAYMENT;
     }
-    cashier.withdraw(cat.getPrice());
+    CASHIER.withdraw(cat.getPrice());
     cats.add(cat);
     return new Payment(cat.getPrice(), true);
   }
@@ -47,7 +46,7 @@ public class ShopController {
     }
     Cat cat = cats.get(id);
     Payment change = new Payment(payment.size - cat.getPrice(), true);
-    cashier.put(cat.getPrice());
+    CASHIER.put(cat.getPrice());
     return new Bag(cat, change);
   }
 

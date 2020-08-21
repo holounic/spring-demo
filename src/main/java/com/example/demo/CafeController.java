@@ -13,12 +13,12 @@ public class CafeController {
   private static final int COFFEE_PRICE = 10;
 
   @Resource(name = "cashierBean")
-  Cashier cashier = new Cashier();
+  private static final Cashier CASHIER = new Cashier();
 
   @PostMapping("/buy/coffee")
   @ResponseBody
   public Payment buyCoffee() {
-    cashier.put(COFFEE_PRICE);
+    CASHIER.put(COFFEE_PRICE);
     return new Payment(0, true);
   }
 }

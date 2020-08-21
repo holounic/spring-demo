@@ -75,4 +75,3 @@ function buyCoffee() {
       .then(json => console.log(json));
   getBalance();
 }
-
