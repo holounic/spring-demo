@@ -1,29 +1,31 @@
 package com.example.demo;
 
-import com.example.demo.components.Bag;
-import com.example.demo.components.Cat;
-import com.example.demo.components.Payment;
-import com.example.demo.components.RgbColour;
+import com.example.demo.components.*;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 
-@RestController("/shop")
+@RestController
 public class ShopController {
+  @Resource(name = "cashierBean")
+  Cashier cashier = new Cashier();
+
   private static final Payment EMPTY_PAYMENT = new Payment(0, false);
   private static final Cat NULL_CAT = new Cat("Null", 0, new RgbColour(0, 0, 0), 0);
   private static final Bag EMPTY_BAG = new Bag(NULL_CAT, EMPTY_PAYMENT);
 
   private List<Cat> cats = new LinkedList<>();
-  private int balance = 100000;
 
   @PostMapping("/sell")
   @ResponseBody
   public Payment sellCat(@RequestBody Cat cat) {
-    if (balance < cat.getPrice()) {
+    if (cashier.getSum() < cat.getPrice()) {
       return EMPTY_PAYMENT;
     }
-    balance -= cat.getPrice();
+    cashier.withdraw(cat.getPrice());
     cats.add(cat);
     return new Payment(cat.getPrice(), true);
   }
@@ -45,7 +47,7 @@ public class ShopController {
     }
     Cat cat = cats.get(id);
     Payment change = new Payment(payment.size - cat.getPrice(), true);
-    balance += cat.getPrice();
+    cashier.put(cat.getPrice());
     return new Bag(cat, change);
   }
 

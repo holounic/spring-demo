@@ -41,8 +41,6 @@ function buyCat() {
       });
 }
 
-
-
 function sellCat() {
   const sellInfo = getElement('cat-for-sale').elements;
   const name = sellInfo["name"].value;
@@ -58,4 +56,19 @@ function sellCat() {
       .then(response => response.json())
       .then(json => displayElement('payment-window', jsonToPayment(json))
       );
+}
+
+function buyCoffee() {
+  fetch('/buy/coffee', {method: 'POST'})
+      .then(response => response.json())
+      .then(json => console.log(json));
+}
+
+function getBalance() {
+  fetch('/balance')
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        displayElement('balance', json);
+      })
 }
