@@ -8,7 +8,7 @@ function jsonToCat(json) {
   const nameStr = `<h3>Name: ${json['name']}</h3>`;
   const ageStr = `<p>Age: ${json['age']}</p>`;
   const colour = json['colour'];
-  const colourStr = `<p style="color: ${jsonToColour(colour)}">colour</p>`;
+  const colourStr = `<p style="background-color: ${jsonToColour(colour)};">colour</p>`;
   const priceStr = `<p>Price: ${json['price']}</p>`;
   return nameStr + ageStr + colourStr + priceStr;
 };
@@ -19,6 +19,15 @@ const colourToJson = (r, g, b) => `{"r": ${r}, "g": ${g}, "b":${b}}`;
 const catToJson = (name, age, price, colour) => `{"age": ${age}, "colour": ${colour}, "name": "${name}", "price": ${price}}`;
 
 const getId = () => Number.parseInt(getElement('cat-id').elements[0].value);
+
+function getBalance() {
+  fetch('/balance')
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        displayElement('balance', json);
+      })
+}
 
 function showCat() {
   fetch(`/show/${getId()}`)
@@ -39,6 +48,7 @@ function buyCat() {
         displayElement('cat-window', jsonToCat(json['cat']));
         displayElement('change-window', jsonToChange(json['change']));
       });
+  getBalance();
 }
 
 function sellCat() {
@@ -56,19 +66,13 @@ function sellCat() {
       .then(response => response.json())
       .then(json => displayElement('payment-window', jsonToPayment(json))
       );
+  getBalance();
 }
 
 function buyCoffee() {
   fetch('/buy/coffee', {method: 'POST'})
       .then(response => response.json())
       .then(json => console.log(json));
+  getBalance();
 }
 
-function getBalance() {
-  fetch('/balance')
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        displayElement('balance', json);
-      })
-}

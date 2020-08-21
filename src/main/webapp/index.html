@@ -5,7 +5,12 @@
     <title>Shop</title>
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getBalance()">
+    <div>
+      <h3>Shop balance</h3>
+      <p id="balance"></p>
+    </div>
+
     <h1>Cat shop</h1>
 
     <form id="cat-id">
@@ -22,7 +27,10 @@
         <option value="card">
       </datalist>
     </form>
+    <button onclick="showCat()">show cat</button>
+    <button onclick="buyCat()">buy cat</button>
     <br>
+    <h3>Sell cat</h3>
     <form id="cat-for-sale">
       <label for="for-sale-name">Name: </label>
       <input id="for-sale-name" type="text" name="name" value="name">
@@ -38,15 +46,15 @@
       <label for="colour-b">B: </label>
       <input id="colour-b" type="number" name="b" value="0">
     </form>
-
-    <button onclick="buyCoffee()">buy coffee</button>
-    <button onclick="showCat()">show cat</button>
-    <button onclick="buyCat()">buy cat</button>
     <button onclick="sellCat()">sell cat</button>
-    <button onclick="getBalance()">shop balance</button>
+
     <div id="cat-window"></div>
     <div id="change-window"></div>
     <div id="payment-window"></div>
-    <div id="balance"></div>
+
+    <h1>Cafe</h1>
+    <button onclick="buyCoffee()">buy coffee</button>
+
+
   </body>
 </html>
