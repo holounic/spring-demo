@@ -19,6 +19,6 @@ public class CafeController {
   @ResponseBody
   public Payment buyCoffee() {
     CASHIER.put(COFFEE_PRICE);
-    return new Payment(0, true);
+    return new Payment(0, Payment.PaymentMethod.CASH);
   }
 }

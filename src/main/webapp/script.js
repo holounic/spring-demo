@@ -12,7 +12,7 @@ function jsonToCat(json) {
   const priceStr = `<p>Price: ${json['price']}</p>`;
   return nameStr + ageStr + colourStr + priceStr;
 };
-const paymentToJson = (size, isCash) => `{"size": ${size}, "isCash": ${isCash}}`;
+const paymentToJson = (size, method) => `{"size": ${size}, "method": \"${method}\"}`;
 const jsonToPayment = (payment) => `<p>Earned: ${payment["size"]}</p>`;
 const jsonToChange = (json) => `<p>Change: ${json['size']}</p>`;
 const colourToJson = (r, g, b) => `{"r": ${r}, "g": ${g}, "b":${b}}`;
@@ -38,7 +38,9 @@ function buyCat() {
   const paymentInfo = getElement('payment-input').elements;
   const size = Number.parseInt(paymentInfo[0].value);
   const method = paymentInfo[1].value;
-  const requestBody = paymentToJson(size, method === "cash" ? 1 : 0);
+  const requestBody = paymentToJson(size, method === "cash" ? "CASH" : "CARD");
+  //log
+  console.log(requestBody);
   const request = new Request(`/buy/${getId()}`, {method: 'POST', body: requestBody, headers: JSON_HEADER});
 
   fetch(request)

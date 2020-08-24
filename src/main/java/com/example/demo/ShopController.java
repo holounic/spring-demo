@@ -12,7 +12,7 @@ public class ShopController {
   @Resource(name = "cashierBean")
   private final Cashier CASHIER = new CashierConfig().getCashier();
 
-  private static final Payment EMPTY_PAYMENT = new Payment(0, false);
+  private static final Payment EMPTY_PAYMENT = new Payment(0, Payment.PaymentMethod.CARD);
   private static final Cat NULL_CAT = new Cat("Null", 0, new RgbColour(0, 0, 0), 0);
   private static final Bag EMPTY_BAG = new Bag(NULL_CAT, EMPTY_PAYMENT);
 
@@ -25,7 +25,7 @@ public class ShopController {
     }
     CASHIER.withdraw(cat.getPrice());
     cats.add(cat);
-    return new Payment(cat.getPrice(), true);
+    return new Payment(cat.getPrice(), Payment.PaymentMethod.CASH);
   }
 
   @GetMapping("/show/{id}")
@@ -42,7 +42,7 @@ public class ShopController {
       return EMPTY_BAG;
     }
     Cat cat = cats.get(id);
-    Payment change = new Payment(payment.size - cat.getPrice(), true);
+    Payment change = new Payment(payment.size - cat.getPrice(), Payment.PaymentMethod.CASH);
     CASHIER.put(cat.getPrice());
     return new Bag(cat, change);
   }
