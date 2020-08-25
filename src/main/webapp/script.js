@@ -53,12 +53,12 @@ function buyCat() {
 
 function sellCat() {
   const sellInfo = getElement('cat-for-sale').elements;
-  const name = sellInfo["name"].value;
-  const age = Number.parseInt(sellInfo["age"].value);
-  const price = Number.parseInt(sellInfo["price"].value);
-  const r = Number.parseInt(sellInfo["r"].value);
-  const g = Number.parseInt(sellInfo["g"].value);
-  const b = Number.parseInt(sellInfo["b"].value);
+  const name = sellInfo['name'].value;
+  const age = Number.parseInt(sellInfo['age'].value);
+  const price = Number.parseInt(sellInfo['price'].value);
+  const r = Number.parseInt(sellInfo['r'].value);
+  const g = Number.parseInt(sellInfo['g'].value);
+  const b = Number.parseInt(sellInfo['b'].value);
   const requestBody = catToJson(name, age, price, colourToJson(r, g, b));
   const request = new Request('/sell', {method: 'POST', body: requestBody, headers: JSON_HEADER});
 
@@ -69,7 +69,12 @@ function sellCat() {
 }
 
 function buyCoffee() {
-  fetch('/buy/coffee', {method: 'POST'})
+  const coffeeInfo = getElement('coffee-info').elements;
+  const paymentSize = Number.parseInt(coffeeInfo['payment-size'].value);
+  const type = coffeeInfo['type'].value;
+  const requestBody = `{"size": ${paymentSize}, "method": "CASH", "type": "${type}"}`;
+  fetch('/buy/coffee', {method: 'POST', body: requestBody, headers: JSON_HEADER})
       .then(response => response.json())
+      .then(json => console.log(json))
       .then(() =>  getBalance());
 }

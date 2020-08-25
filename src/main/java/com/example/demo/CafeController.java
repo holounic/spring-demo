@@ -3,7 +3,7 @@ package com.example.demo;
 import com.example.demo.components.Cashier;
 import com.example.demo.components.Payment;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -15,10 +15,19 @@ public class CafeController {
   @Resource(name = "cashierBean")
   private final Cashier CASHIER = new Cashier();
 
+  /**
+   * @param payment representation of the json {"size": <int>, "method": <String representation of
+   *                {@see Payment.PaymentMethod}>, "type": <String>}. Note that the {@see Payment}
+   *                has no "type" field, but Spring will convert it to Payment instance;
+   * @return change
+   */
   @PostMapping("/buy/coffee")
-  @ResponseBody
-  public Payment buyCoffee() {
+  public Payment buyCoffee(@RequestBody Payment payment) {
+    if (payment.size < COFFEE_PRICE) {
+      return payment;
+    }
     CASHIER.put(COFFEE_PRICE);
-    return new Payment(0, Payment.PaymentMethod.CASH);
+    int change = payment.size - COFFEE_PRICE;
+    return new Payment(change, Payment.PaymentMethod.CASH);
   }
 }
