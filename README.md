@@ -34,6 +34,9 @@ public getters (for ``@RequestBody``) and setters (for ``@ResponseBody``)
 and the fields of the request json should have the same names as the POJO class.
 Let's consider an example.
 
+Spring parses jsons with fields that don't appear in the POJO 
+representation properly, just by skipping these unrepresented fields. 
+
 ````
 public class Date {
     public int day;
