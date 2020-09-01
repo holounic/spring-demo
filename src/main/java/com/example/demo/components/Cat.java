@@ -2,7 +2,7 @@ package com.example.demo.components;
 
 public class Cat {
   private final String name;
-  private int age;
+  private final int age;
   private final RgbColour colour;
   private final int price;
 
